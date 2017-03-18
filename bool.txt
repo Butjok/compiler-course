@@ -1,0 +1,24 @@
+int main()
+{
+	int a = 1;
+	int b = 2;
+	
+	bool eq = a = b;
+	bool ne = a != b;
+	bool lt = a < b;
+	bool le = a <= b;
+	bool gt = a > b;
+	bool ge = a >= b;
+	
+	print("a = ", a, "\n");
+	print("b = ", b, "\n");
+	print("\n");
+	if (eq) print("Equal\n");
+	if (ne) print("Not equal\n");
+	if (lt) print("Less\n");
+	if (le) print("Less or equal\n");
+	if (gt) print("Greater\n");
+	if (ge) print("Greater or equal\n");
+	
+	return 0;
+}

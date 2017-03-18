@@ -1,0 +1,26 @@
+int main()
+{
+	int x, y;
+	
+	print("Multiplication table\n");
+	print("\n");
+	
+	print("\t");
+	for (x = 1; x <= 9; x++;)
+	{
+		print(x, "\t");
+	}
+	print("\n");
+	for (y = 1; y <= 9; y++;)
+	{
+		print(y, "\t");
+		for (x = 1; x <= 9; x++;)
+		{
+			print(x*y, "\t");
+		}
+		print("\n");
+	}
+	print("\n");
+	
+	return 0;
+}

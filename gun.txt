@@ -1,0 +1,37 @@
+int main()
+{
+	float alpha_d = 45.0; // in degrees
+	float speed   = 50.0;
+
+	float alpha = alpha_d * pi() / 180.0;
+	
+	float x = 0.0;
+	float y = 0.0;
+
+	float xspeed = cos(alpha) * speed;
+	float yspeed = sin(alpha) * speed;
+
+	float g = 10.0;
+	
+	bool flag = true;
+
+	print("FIRE!\n");
+	sleep(1);
+
+	while (flag)
+	{
+		print(x, ", ", y, "...\n");
+		usleep(500000);
+	
+		x = x + xspeed;
+		y = y + yspeed;
+
+		yspeed = yspeed - g;
+
+		if (y <= 0) flag = false;
+	}
+
+	print("BOOM!\n");
+
+	return 0;
+}

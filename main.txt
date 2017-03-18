@@ -1,0 +1,17 @@
+int main()
+{
+	float pi = 0;
+	int sign = 1;
+	
+	for (int i = 1; i < 1000000; i = i + 2;)
+	{
+		// print("i=", i, ", 1/i=", (1.0/i), "\n");
+		pi = pi + sign * (1.0 / i);
+		sign = -sign;
+	}
+	
+	pi = 4 * pi;
+	print("Pi = ", pi, "\n");
+	
+	return 0;
+}

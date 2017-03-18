@@ -1,0 +1,6 @@
+int main()
+{
+	print(pi(), "\n");
+
+	return 0;
+}

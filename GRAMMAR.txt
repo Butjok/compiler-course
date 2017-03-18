@@ -1,0 +1,196 @@
+program
+	: functions EOF
+
+functions
+	: <E>
+	| function functions
+
+function
+	: type IDENTIFIER ( arguments ) body
+	| EXTERN type IDENTIFIER ( arguments ) ;
+
+type
+	: VOID
+	| BOOL
+	| INT
+	| FLOAT
+
+arguments
+	: <E>
+	| argument arguments'
+
+arguments'
+	: <E>
+	| , argument arguments'
+
+argument
+	: type IDENTIFIER
+
+body
+	: instruction
+	| block
+
+block
+	: { list }
+
+list
+	: <E>
+	| instruction list
+
+instruction
+	: ;
+	| definitions ;
+	| assignment_or_function_call ;
+	| return ;
+	| if
+	| while
+	| for
+	| print ;
+
+definitions
+	: type definition definitions'
+
+definitions'
+	: <E>
+	| , definition definitions'
+
+definition
+	: IDENTIFIER
+	| IDENTIFIER = expression
+
+assignment_or_function_call
+	: IDENTIFIER = expression
+	| IDENTIFIER += expression
+	| IDENTIFIER -= expression
+	| IDENTIFIER *= expression
+	| IDENTIFIER /= expression
+	| IDENTIFIER %= expression
+	| IDENTIFIER **= expression
+	| IDENTIFIER ++
+	| IDENTIFIER --
+	| IDENTIFIER ( expressions )
+
+expressions
+	: <E>
+	| expression expressions'
+
+expressions'
+	: <E>
+	| , expression expressions'
+
+return
+	: RETURN
+	| RETURN expression
+
+if
+	: IF ( expression ) body
+	| IF ( expression ) body ELSE body
+
+while
+	: WHILE ( expression ) body
+
+for
+	: FOR ( body for_cond body ) body
+
+for_cond
+	: ;
+	| expression ;
+
+print
+	: PRINT ( expressions )
+
+/*
+
+operators priority
+
+	precedence	operators		associativity
+	1			+ - ! (unary)	<-
+	2			**				<-
+	3			* /				->
+	4			+ -				->
+	5			< <= > >=		->
+	6			= !=			->
+	7			and				->
+	8			or				->
+
+*/
+
+/*
+
+since LL(k) can't handle left-to-right associativity, we use loops
+to achieve this
+
+TODO: check whether LL(k) grammars can handle left-to-right associativity
+
+*/
+
+equality_operator
+	: =
+	| !=
+
+relation_operator
+	: <
+	| <=
+	| >
+	| >=
+
+addition_operator
+	: +
+	| -
+
+multiplication_operator
+	: *
+	| /
+	| %
+
+expression
+	: disjunction
+
+disjunction
+	: conjunction
+	| conjunction OR conjunction
+	| conjunction OR conjunction OR ...
+
+conjunction
+	: equality
+	| equality AND equality AND
+	| equality AND equality AND ...
+
+equality
+	: relation
+	| relation equality_operator relation
+	| relation equality_operator relation equality_operator ...
+
+relation
+	: addition
+	| addition relation_operator addition
+	| addition relation_operator addition relation_operator ...
+
+addition
+	: multiplication
+	| multiplication addition_operator multiplication
+	| multiplication addition_operator multiplication addition_operator ...
+
+multiplication
+	: exponentiation
+	| exponentiation multiplication_operator exponentiation
+	| exponentiation multiplication_operator exponentiation multiplication_operator ...
+
+exponentiation
+	: unary
+	| unary ** exponentiation
+
+unary
+	: atom
+	| + unary
+	| - unary
+	| ! unary
+
+atom
+	: BOOLEAN_CONSTANT
+	| INTEGER_CONSTANT
+	| FLOAT_CONSTANT
+	| STRING_LITERAL
+	| IDENTIFIER
+	| IDENTIFIER ( expressions )
+	| ( expression )

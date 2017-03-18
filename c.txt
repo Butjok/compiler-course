@@ -1,0 +1,9 @@
+int rand_max()
+{
+	return 2147483647;
+}
+
+float frand()
+{
+	return rand() / (rand_max() + 0.0);
+}

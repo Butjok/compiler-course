@@ -1,0 +1,55 @@
+extern int abs(int x);
+extern float fabs(float x);
+
+extern float sqrt(float x);
+
+extern float sin(float x);
+extern float cos(float x);
+
+extern float tan(float x);
+extern float ctan(float x);
+
+extern float atan(float x);
+
+extern float pi();
+extern float l2e();
+extern float l2t();
+extern float ln2();
+extern float lg2();
+
+// C functions
+extern int time(int x);
+extern void srand(int x);
+extern int rand();
+
+extern int sleep(int x);
+extern int usleep(int x);
+
+// C extensions
+extern float frand();
+
+
+int main()
+{
+	int a = 1;
+	int b = 2;
+	
+	bool eq = a = b;
+	bool ne = a != b;
+	bool lt = a < b;
+	bool le = a <= b;
+	bool gt = a > b;
+	bool ge = a >= b;
+	
+	print("a = ", a, "\n");
+	print("b = ", b, "\n");
+	print("\n");
+	if (eq) print("Equal\n");
+	if (ne) print("Not equal\n");
+	if (lt) print("Less\n");
+	if (le) print("Less or equal\n");
+	if (gt) print("Greater\n");
+	if (ge) print("Greater or equal\n");
+	
+	return 0;
+}

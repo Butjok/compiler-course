@@ -1,0 +1,15 @@
+int main()
+{
+	float pi = 0;
+
+	for ({int i = 1; int sign = 1;} i < 1000000; {i = i + 2; sign = -sign;})
+	{
+		pi = pi + sign * (1.0 / i);
+	}
+	pi = 4 * pi;
+
+	print("Calculated PI = ", pi, "\n");
+	print("Predefined PI = ", pi(), "\n");
+
+	return 0;
+}
